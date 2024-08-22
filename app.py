@@ -10,6 +10,7 @@ from langchain.chains import RetrievalQA
 from langchain.chains.llm import LLMChain
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
 from langchain.prompts import PromptTemplate
+from langchain_ollama import OllamaLLM
 
 st.sidebar.title('RAG App') # Set the title of the streamlit app
 QUERY = None
@@ -17,18 +18,20 @@ QUERY = None
 # Set the Ollama parameters
 OLLAMA_URL="http://ollama:11434"
 LLM_MODEL="llama3"
-EMBEDDING_MODEL="all-minilm"
+EMBEDDING_MODEL="all-minilm-v6"
 
 # Define LLM and EMBEDDING
 # pylint: disable=not-callable
-llm = Ollama(
-    base_url=OLLAMA_URL,
-    model=LLM_MODEL
-)
+# llm = Ollama(
+#     base_url=OLLAMA_URL,
+#     model=LLM_MODEL
+# )
+
+llm = OllamaLLM(model="llama3")
 
 embeddings = OllamaEmbeddings(
-    base_url=OLLAMA_URL,
-    model=EMBEDDING_MODEL
+            model="llama3",
+            # model=EMBEDDING_MODEL
 )
 
 def create_vector(text):
